@@ -5,10 +5,15 @@ const { join } = require('path');
 module.exports = {
   content: [
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
+     join('libs/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
+    extend: {
+       colors: {
+        'grey-basic': '#F3F5F8',
+      },
+    },
   },
   plugins: [],
 };

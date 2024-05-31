@@ -11,6 +11,9 @@ import { FooterComponent, HeaderComponent, MainComponent } from '@dougs/shared';
     <ui-main><router-outlet /></ui-main>
     <ui-footer />
   `,
+  host: {
+    class: 'flex-1 flex flex-col items-center',
+  },
 })
 export class AppComponent {
   title = 'category-front';
