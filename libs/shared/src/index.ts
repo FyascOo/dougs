@@ -3,3 +3,6 @@ export { HeaderComponent } from './lib/shared/ui/header.component';
 export { MainComponent } from './lib/shared/ui/main.component';
 export { ActionButtonComponent } from './lib/shared/ui/action-button.component';
 export { ButtonComponent } from './lib/shared/ui/button.component';
+export { ContainerComponent } from './lib/shared/ui/container.component';
+export { SearchInputComponent } from './lib/shared/ui/search-input.component';
+export { SelectComponent } from './lib/shared/ui/select.component';

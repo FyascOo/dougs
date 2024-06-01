@@ -12,7 +12,11 @@ module.exports = {
     extend: {
        colors: {
         'grey-basic': '#F3F5F8',
+        'light-grey': '#dce4ed'
       },
+        flex: {
+        '2': '2 2 0%'
+      }
     },
   },
   plugins: [],
