@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { ButtonComponent } from './button.component';
 
 @Component({
   standalone: true,
-  imports: [],
+  imports: [ButtonComponent],
   selector: 'ui-footer',
   template: `
-    <span>Sélectionner la catégorie</span>
+    <ui-button>Sélectionner la catégorie</ui-button>
   `,
   host: {
     class: 'fixed bottom-0 w-4/5 h-[60px] flex flex-row-reverse items-center bg-white',

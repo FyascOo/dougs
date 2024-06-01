@@ -8,4 +8,25 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-size: 12px;
+    line-height: 120%;
 }
+
+/*DESIGN SYSTEM*/
+:root {
+    --light-grey: #f1f7fc;
+    --light-blue: #11abec
+}
+
+h1 {
+    width: 132px;
+    height: 26px;
+    font-family: 'Eina03-SemiBold';
+    font-size: 22px;
+    line-height: 120%;
+    color: #001A25;
+    font-weight: 800;
+}
+
