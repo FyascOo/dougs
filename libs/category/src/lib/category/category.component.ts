@@ -10,8 +10,8 @@ import { CategoryStore } from './category.store';
   template: `
     <ui-container>
       <div class="w-full flex items-center gap-4">
-        <ui-search-input class="flex-2" />
-        <ui-select [data]="store.group()" class="flex-1" />
+        <ui-search-input (valueChanges)="searchInput($event)" class="flex-2" />
+        <ui-select [data]="store.group()" (optionSelected)="groupSelected($event)" class="flex-1" />
       </div>
       @for (category of store.categories(); track $index) {
       <span>{{ category.wording }}</span>
@@ -28,5 +28,13 @@ export class CategoryComponent {
 
   constructor() {
     this.store.loadCategories();
+  }
+
+  searchInput(search: string) {
+    console.log(search);
+  }
+
+  groupSelected(id: number) {
+    console.log(id);
   }
 }

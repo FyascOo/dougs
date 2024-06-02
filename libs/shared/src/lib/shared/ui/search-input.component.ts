@@ -19,6 +19,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   },
 })
 export class SearchInputComponent {
-  textFC = new FormControl('');
+  textFC = new FormControl('', { nonNullable: true });
   valueChanges = outputFromObservable(this.textFC.valueChanges);
 }
