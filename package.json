@@ -13,6 +13,8 @@
     "@angular/platform-browser": "~18.0.0",
     "@angular/platform-browser-dynamic": "~18.0.0",
     "@angular/router": "~18.0.0",
+    "@ngrx/operators": "^17.2.0",
+    "@ngrx/signals": "^17.2.0",
     "@nx/angular": "19.1.1",
     "axios": "^1.6.0",
     "cors": "^2.8.5",
