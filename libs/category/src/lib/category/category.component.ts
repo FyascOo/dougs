@@ -13,7 +13,7 @@ import { CategoryStore } from './category.store';
         <ui-search-input (valueChanges)="searchInput($event)" class="flex-2" />
         <ui-select [data]="store.group()" (optionSelected)="groupSelected($event)" class="flex-1" />
       </div>
-      @for (category of store.categories(); track $index) {
+      @for (category of store.filterCategories(); track $index) {
       <span>{{ category.wording }}</span>
       }
     </ui-container>
@@ -31,10 +31,10 @@ export class CategoryComponent {
   }
 
   searchInput(search: string) {
-    console.log(search);
+    this.store.updateFilterSearch(search);
   }
 
-  groupSelected(id: number) {
-    console.log(id);
+  groupSelected(id: number | null) {
+    this.store.updateFilterGroupId(id);
   }
 }

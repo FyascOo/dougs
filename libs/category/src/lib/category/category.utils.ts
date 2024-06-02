@@ -1,4 +1,4 @@
-import { Category, Group } from './category.model';
+import { Category, Filter, Group } from './category.model';
 
 export const mapUniqueGroups = (categories: Category[]) => {
   const groups = categories.map(category => category.group).filter(v => !!v) as Group[];
@@ -9,4 +9,11 @@ export const mapUniqueGroups = (categories: Category[]) => {
     return acc;
   }, []);
   return uniqueGroups;
+};
+
+export const filterCategories = (categories: Category[], filter: Filter) => {
+  return categories.filter(category => {
+    const hasSelectedGroupId = filter.groupId ? category.group?.id === filter.groupId : true;
+    return hasSelectedGroupId && category.wording.toLowerCase().includes(filter.categoryWording.toLocaleLowerCase());
+  });
 };

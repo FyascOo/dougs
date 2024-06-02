@@ -1,27 +1,38 @@
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { combineLatest, debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { Category, Group } from './category.model';
+import { Category, Filter, Group } from './category.model';
 import { CategoryRepository } from './category.repository';
-import { mapUniqueGroups } from './category.utils';
+import { filterCategories, mapUniqueGroups } from './category.utils';
 
 export type CategoryState = {
   categories: Category[];
   group: Group[];
+  filter: Filter;
   isLoading: boolean;
 };
 
 export const initialState: CategoryState = {
   categories: [],
   group: [],
+  filter: { categoryWording: '', groupId: null },
   isLoading: false,
 };
 
 export const CategoryStore = signalStore(
   withState(initialState),
+  withComputed(({ categories, filter }) => ({
+    filterCategories: computed(() => filterCategories(categories(), filter())),
+  })),
   withMethods((store, categoryRepository = inject(CategoryRepository)) => ({
+    updateFilterSearch(search: string) {
+      patchState(store, ({ filter }) => ({ filter: { ...filter, categoryWording: search } }));
+    },
+    updateFilterGroupId(id: number | null) {
+      patchState(store, ({ filter }) => ({ filter: { ...filter, groupId: id } }));
+    },
     loadCategories: rxMethod<void>(
       pipe(
         debounceTime(300),

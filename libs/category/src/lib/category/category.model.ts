@@ -10,3 +10,8 @@ export interface Group {
   name: string;
   color: string;
 }
+
+export interface Filter {
+  categoryWording: string;
+  groupId: number | null;
+}
