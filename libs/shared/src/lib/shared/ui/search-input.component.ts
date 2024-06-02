@@ -7,11 +7,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   imports: [ReactiveFormsModule],
   selector: 'ui-search-input',
   template: `
-    <span class="material-symbols-outlined">search</span>
+    <span class="text-xl material-symbols-outlined mr-2">search</span>
     <input
       [formControl]="textFC"
       type="text"
-      class=" placeholder:text-black focus:outline-none focus:placeholder:text-opacity-0"
+      class="w-full placeholder:text-black focus:outline-none focus:placeholder:text-opacity-0"
       placeholder="Rechercher une catégorie" />
   `,
   host: {

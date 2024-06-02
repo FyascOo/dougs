@@ -1,4 +1,4 @@
-import { Category, Filter, Group } from './category.model';
+import { Category, Filter, Group, GroupedCategories } from './category.model';
 
 export const mapUniqueGroups = (categories: Category[]) => {
   const groups = categories.map(category => category.group).filter(v => !!v) as Group[];

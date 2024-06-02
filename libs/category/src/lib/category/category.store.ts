@@ -3,12 +3,13 @@ import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { combineLatest, debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { Category, Filter, Group } from './category.model';
+import { Category, Filter, Group, GroupedCategories } from './category.model';
 import { CategoryRepository } from './category.repository';
 import { filterCategories, mapUniqueGroups } from './category.utils';
 
 export type CategoryState = {
   categories: Category[];
+  groupedCategories: GroupedCategories[];
   group: Group[];
   filter: Filter;
   isLoading: boolean;
@@ -16,6 +17,7 @@ export type CategoryState = {
 
 export const initialState: CategoryState = {
   categories: [],
+  groupedCategories: [],
   group: [],
   filter: { categoryWording: '', groupId: null },
   isLoading: false,
@@ -44,7 +46,9 @@ export const CategoryStore = signalStore(
             tapResponse({
               next: ([categories, visibleCategories]) =>
                 patchState(store, {
-                  categories: categories.filter(category => visibleCategories.some(({ id }) => category.id === id)),
+                  categories: categories
+                    .filter(category => visibleCategories.some(({ id }) => category.id === id))
+                    .sort((a, b) => (a.wording > b.wording ? 1 : -1)),
                 }),
               error: console.error,
               finalize: () => patchState(store, { isLoading: false }),

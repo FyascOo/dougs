@@ -15,7 +15,7 @@ export interface Data {
   template: `
     <select
       [formControl]="optionFC"
-      class="w-full flex justify-between items-center border border-light-grey rounded h-8 ">
+      class="cursor-pointer w-full flex justify-between items-center border border-light-grey rounded h-8">
       <option [value]="null">Tous les groupes de catégories</option>
       @for (value of data(); track $index) {
       <option [value]="value.id">{{ value.name }}</option>

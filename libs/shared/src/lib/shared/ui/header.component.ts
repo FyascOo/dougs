@@ -7,7 +7,7 @@ import { ActionButtonComponent } from './action-button.component';
   selector: 'ui-header',
   template: `
     <div class="w-4/5 h-[60px] flex items-center">
-      <h1>Catégories</h1>
+      <h1 class="mr-4">Catégories</h1>
       <ui-action-button icon="stacks" [active]="true">Groupe de catégorie</ui-action-button>
       <ui-action-button icon="sort_by_alpha">Ordre alphabétique</ui-action-button>
     </div>

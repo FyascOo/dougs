@@ -17,16 +17,57 @@ body {
 /*DESIGN SYSTEM*/
 :root {
     --light-grey: #f1f7fc;
-    --light-blue: #11abec
+    --light-blue: #11ABEC;
+    --blue: #001A25;
+    --grey: #636970;
 }
 
 h1 {
-    width: 132px;
-    height: 26px;
     font-family: 'Eina03-SemiBold';
     font-size: 22px;
     line-height: 120%;
-    color: #001A25;
+    color: var(--blue);
     font-weight: 800;
 }
+
+h2 {
+    font-family: 'Eina03-SemiBold';
+    font-size: 14px;
+    line-height: 120%;
+    color: var(--blue);
+    font-weight: 600;
+}
+
+.m-green {
+    color: #063a06;
+    background: #e6ffe7;
+
+}
+.m-purple {
+    color: #eb5ffd;
+    background: #ffe6fd;
+
+      
+
+}
+.m-pink {
+    color: #FD755F;
+    background: #FFECE6;
+
+}
+.m-blue {
+    color: #5f61fd;
+    background: #e6e8ff;
+
+}
+.m-red {
+    color: #fd5f5f;
+    background: #ffe6e6;
+}
+
+.m-none {
+    color: #424040;
+    background: #dbdada;
+}
+
 
