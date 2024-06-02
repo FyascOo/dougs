@@ -15,6 +15,4 @@ import { FooterComponent, HeaderComponent, MainComponent } from '@dougs/shared';
     class: 'flex-1 flex flex-col items-center',
   },
 })
-export class AppComponent {
-  title = 'category-front';
-}
+export class AppComponent {}

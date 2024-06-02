@@ -2,14 +2,13 @@ import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { combineLatest, debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { Category, Filter, Group, GroupedCategories } from './category.model';
+import { combineLatest, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
+import { Category, Filter, Group } from './category.model';
 import { CategoryRepository } from './category.repository';
 import { filterCategories, mapUniqueGroups } from './category.utils';
 
 export type CategoryState = {
   categories: Category[];
-  groupedCategories: GroupedCategories[];
   group: Group[];
   filter: Filter;
   isLoading: boolean;
@@ -17,7 +16,6 @@ export type CategoryState = {
 
 export const initialState: CategoryState = {
   categories: [],
-  groupedCategories: [],
   group: [],
   filter: { categoryWording: '', groupId: null },
   isLoading: false,
@@ -37,12 +35,13 @@ export const CategoryStore = signalStore(
     },
     loadCategories: rxMethod<void>(
       pipe(
-        debounceTime(300),
         distinctUntilChanged(),
         tap(() => patchState(store, { isLoading: true })),
         switchMap(() => {
           return combineLatest([categoryRepository.getCategories(), categoryRepository.getVisibleCategories()]).pipe(
-            tap(([categories]) => patchState(store, { group: mapUniqueGroups(categories) })),
+            tap(([categories]) =>
+              patchState(store, { group: mapUniqueGroups(categories).sort((a, b) => (a.name > b.name ? 1 : -1)) })
+            ),
             tapResponse({
               next: ([categories, visibleCategories]) =>
                 patchState(store, {

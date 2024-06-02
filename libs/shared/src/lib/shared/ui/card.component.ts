@@ -5,9 +5,12 @@ import { Component, input } from '@angular/core';
   imports: [],
   selector: 'ui-card',
   template: `
+    @if(color().length > 0) {
+
     <div class="w-fit p-2 rounded-2xl" [class]="color()">
       <ng-content select="[slot=chips]"></ng-content>
     </div>
+    }
     <h2>
       <ng-content select="[slot=title]"></ng-content>
     </h2>

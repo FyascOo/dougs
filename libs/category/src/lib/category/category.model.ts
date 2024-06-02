@@ -8,16 +8,10 @@ export interface Category {
 export interface Group {
   id: number;
   name: string;
-  color: string;
+  color?: string;
 }
 
 export interface Filter {
   categoryWording: string;
   groupId: number | null;
-}
-export interface GroupedCategories {
-  id: number;
-  name: string;
-  color: string;
-  categories: Category[];
 }

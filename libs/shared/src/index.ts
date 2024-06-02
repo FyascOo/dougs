@@ -7,3 +7,4 @@ export { ContainerComponent } from './lib/shared/ui/container.component';
 export { SearchInputComponent } from './lib/shared/ui/search-input.component';
 export { SelectComponent } from './lib/shared/ui/select.component';
 export { CardComponent } from './lib/shared/ui/card.component';
+export { FilterStore } from './lib/shared/service/filter.store';
