@@ -11,9 +11,20 @@ export const mapUniqueGroups = (categories: Category[]) => {
   return uniqueGroups;
 };
 
-export const filterCategories = (categories: Category[], filter: Filter) => {
-  return categories.filter(category => {
-    const hasSelectedGroupId = filter.groupId ? category.group?.id === filter.groupId : true;
-    return hasSelectedGroupId && category.wording.toLowerCase().includes(filter.categoryWording.toLocaleLowerCase());
-  });
+export const mapFilterCategories = (categories: Category[], filter: Filter) => {
+  return categories.filter(category => getFilter(filter, category));
+};
+
+export const mapFilterGroupedCategories = (categories: Category[], group: Group[], filter: Filter) => {
+  return group
+    .map(g => ({
+      ...g,
+      categories: categories.filter(category => category.group?.id === g.id),
+    }))
+    .filter(groupedCategory => groupedCategory.categories.some(category => getFilter(filter, category)));
+};
+
+const getFilter = (filter: Filter, category: Category) => {
+  const hasSelectedGroupId = filter.groupId ? category.group?.id === filter.groupId : true;
+  return hasSelectedGroupId && category.wording.toLowerCase().includes(filter.categoryWording.toLocaleLowerCase());
 };

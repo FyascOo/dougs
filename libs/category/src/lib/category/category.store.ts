@@ -5,7 +5,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { combineLatest, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
 import { Category, Filter, Group } from './category.model';
 import { CategoryRepository } from './category.repository';
-import { filterCategories, mapUniqueGroups } from './category.utils';
+import { mapFilterCategories, mapFilterGroupedCategories, mapUniqueGroups } from './category.utils';
 
 export type CategoryState = {
   categories: Category[];
@@ -17,20 +17,21 @@ export type CategoryState = {
 export const initialState: CategoryState = {
   categories: [],
   group: [],
-  filter: { categoryWording: '', groupId: null },
+  filter: { categoryWording: '', groupId: 0 },
   isLoading: false,
 };
 
 export const CategoryStore = signalStore(
   withState(initialState),
-  withComputed(({ categories, filter }) => ({
-    filterCategories: computed(() => filterCategories(categories(), filter())),
+  withComputed(({ categories, filter, group }) => ({
+    filterCategories: computed(() => mapFilterCategories(categories(), filter())),
+    filterGroupedCategories: computed(() => mapFilterGroupedCategories(categories(), group(), filter())),
   })),
   withMethods((store, categoryRepository = inject(CategoryRepository)) => ({
     updateFilterSearch(search: string) {
       patchState(store, ({ filter }) => ({ filter: { ...filter, categoryWording: search } }));
     },
-    updateFilterGroupId(id: number | null) {
+    updateFilterGroupId(id: number) {
       patchState(store, ({ filter }) => ({ filter: { ...filter, groupId: id } }));
     },
     loadCategories: rxMethod<void>(

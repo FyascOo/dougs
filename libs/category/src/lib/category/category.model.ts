@@ -13,5 +13,5 @@ export interface Group {
 
 export interface Filter {
   categoryWording: string;
-  groupId: number | null;
+  groupId: number;
 }

@@ -16,7 +16,7 @@ export interface Data {
     <select
       [formControl]="optionFC"
       class="cursor-pointer flex justify-between items-center border border-light-grey rounded h-8">
-      <option [value]="null">Tous les groupes de catégories</option>
+      <option [value]="0">Tous les groupes de catégories</option>
       @for (value of data(); track $index) {
       <option [value]="value.id">{{ value.name }}</option>
       }
@@ -25,13 +25,6 @@ export interface Data {
 })
 export class SelectComponent {
   data = input<Data[]>([]);
-  optionFC = new FormControl<string | null>(null);
-  optionSelected = outputFromObservable(
-    this.optionFC.valueChanges.pipe(
-      map(value => {
-        if (value !== null) return +value;
-        return value;
-      })
-    )
-  );
+  optionFC = new FormControl<string>('0');
+  optionSelected = outputFromObservable(this.optionFC.valueChanges.pipe(map(value => +value!)));
 }

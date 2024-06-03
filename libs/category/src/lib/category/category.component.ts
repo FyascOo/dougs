@@ -24,22 +24,22 @@ import { CategoryStore } from './category.store';
           [color]="category.group?.color ?? 'm-none'">
           <span slot="chips">{{ category.group?.name }}</span>
           <span slot="title">{{ category.wording }}</span>
-          <span slot="description">{{ category.description ?? 'Non renseigné' }}</span>
+          <span slot="description">{{ category.description ?? '-' }}</span>
         </ui-card>
         }
       </div>
-      } @if(filterStore.filter() === 'group') { @for (group of store.group(); track $index) {
+      } @if(filterStore.filter() === 'group') { @for (group of store.filterGroupedCategories(); track $index) {
       <div class="w-full p-1" [class]="group.color ?? 'm-none'">{{ group.name }}</div>
       <div class="w-full flex flex-wrap">
-        @for (category of store.filterCategories(); track $index) { @if(category.group?.id === group.id) {
+        @for (category of group.categories; track $index) {
         <ui-card
           (click)="selectCategory(category.id)"
           class="w-1/2"
           [class.active]="category.id | activeCategory : selectedCategory()">
           <span slot="title">{{ category.wording }}</span>
-          <span slot="description">{{ category.description ?? 'Non renseigné' }}</span>
+          <span slot="description">{{ category.description ?? '-' }}</span>
         </ui-card>
-        } }
+        }
       </div>
       } }
     </ui-container>
@@ -69,7 +69,7 @@ export class CategoryComponent {
     this.store.updateFilterSearch(search);
   }
 
-  groupSelected(id: number | null) {
+  groupSelected(id: number) {
     this.store.updateFilterGroupId(id);
   }
 
