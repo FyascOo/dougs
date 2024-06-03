@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FilterStore } from '../service/filter.store';
 import { ActionButtonComponent } from './action-button.component';
 
@@ -20,6 +20,7 @@ import { ActionButtonComponent } from './action-button.component';
   host: {
     class: ' w-full flex justify-center',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   readonly store = inject(FilterStore);

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -34,6 +34,7 @@ import { Component, input } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
   color = input('');

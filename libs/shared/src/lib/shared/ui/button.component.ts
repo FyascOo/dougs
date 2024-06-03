@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -25,6 +25,7 @@ import { Component, output } from '@angular/core';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
   action = output();

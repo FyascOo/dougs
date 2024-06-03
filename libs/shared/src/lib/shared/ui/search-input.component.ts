@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
@@ -17,6 +17,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   host: {
     class: 'flex items-center border border-light-grey rounded p-2 h-8',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchInputComponent {
   textFC = new FormControl('', { nonNullable: true });

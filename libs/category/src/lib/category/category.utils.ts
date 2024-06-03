@@ -1,5 +1,8 @@
 import { Category, Filter, Group } from './category.model';
 
+export const mapVisibleCategories = (categories: Category[], visibleCategories: { id: number }[]) =>
+  categories.filter(category => visibleCategories.some(({ id }) => category.id === id));
+
 export const mapUniqueGroups = (categories: Category[]) => {
   const groups = categories.map(category => category.group).filter(v => !!v) as Group[];
   const uniqueGroups = groups.reduce((acc: Group[], curr: Group) => {

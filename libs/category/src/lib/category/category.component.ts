@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CardComponent, ContainerComponent, FilterStore, SearchInputComponent, SelectComponent } from '@dougs/shared';
-import { CategoryActivePipe } from './category-active.pipe';
-import { CategoryStore } from './category.store';
+import { CategoryActivePipe } from './pipe/category-active.pipe';
+import { CategoryStore } from './store/category.store';
 
 @Component({
   selector: 'lib-category',

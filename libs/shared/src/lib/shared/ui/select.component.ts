@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { map } from 'rxjs';
@@ -22,9 +22,10 @@ export interface Data {
       }
     </select>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent {
   data = input<Data[]>([]);
-  optionFC = new FormControl<string>('0');
-  optionSelected = outputFromObservable(this.optionFC.valueChanges.pipe(map(value => +value!)));
+  optionFC = new FormControl<string>('0', { nonNullable: true });
+  optionSelected = outputFromObservable(this.optionFC.valueChanges.pipe(map(value => +value)));
 }

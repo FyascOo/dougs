@@ -3,9 +3,9 @@ import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { combineLatest, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { Category, Filter, Group } from './category.model';
-import { CategoryRepository } from './category.repository';
-import { mapFilterCategories, mapFilterGroupedCategories, mapUniqueGroups } from './category.utils';
+import { Category, Filter, Group } from '../category.model';
+import { CategoryRepository } from '../category.repository';
+import { mapFilterCategories, mapFilterGroupedCategories, mapUniqueGroups, mapVisibleCategories } from '../category.utils';
 
 export type CategoryState = {
   categories: Category[];
@@ -22,18 +22,20 @@ export const initialState: CategoryState = {
 };
 
 export const CategoryStore = signalStore(
-  withState(initialState),
+  withState<CategoryState>(initialState),
   withComputed(({ categories, filter, group }) => ({
     filterCategories: computed(() => mapFilterCategories(categories(), filter())),
     filterGroupedCategories: computed(() => mapFilterGroupedCategories(categories(), group(), filter())),
   })),
-  withMethods((store, categoryRepository = inject(CategoryRepository)) => ({
+  withMethods(store => ({
     updateFilterSearch(search: string) {
       patchState(store, ({ filter }) => ({ filter: { ...filter, categoryWording: search } }));
     },
     updateFilterGroupId(id: number) {
       patchState(store, ({ filter }) => ({ filter: { ...filter, groupId: id } }));
     },
+  })),
+  withMethods((store, categoryRepository = inject(CategoryRepository)) => ({
     loadCategories: rxMethod<void>(
       pipe(
         distinctUntilChanged(),
@@ -46,9 +48,9 @@ export const CategoryStore = signalStore(
             tapResponse({
               next: ([categories, visibleCategories]) =>
                 patchState(store, {
-                  categories: categories
-                    .filter(category => visibleCategories.some(({ id }) => category.id === id))
-                    .sort((a, b) => (a.wording > b.wording ? 1 : -1)),
+                  categories: mapVisibleCategories(categories, visibleCategories).sort((a, b) =>
+                    a.wording > b.wording ? 1 : -1
+                  ),
                 }),
               error: console.error,
               finalize: () => patchState(store, { isLoading: false }),
